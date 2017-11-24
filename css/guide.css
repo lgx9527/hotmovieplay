@@ -1,0 +1,217 @@
+
+/* body{width: 100%} */
+html{margin: 0;padding: 0}
+*{margin:0;padding:0}
+ul{list-style: none}
+body{margin-top: -5px}
+.container{width:75%}
+
+/* 导航条 */
+.nav{width: 100%;font-size: 0;vertical-align: middle;padding: 0.8% 0;position: fixed;z-index: 100;background-color:#10041B}
+.nav>.container>#guider{width: 100%;}
+#guider>div>img{width:10%;margin-right: 5%}
+#guider>div>a{font-size: 20px;vertical-align: middle;margin-right: 5%;letter-spacing: 2px;font-family: '微软雅黑';text-decoration: none}
+#guider>div>.weak{color: white;text-decoration:none}
+
+#guider>div>.search{display: inline-block;width:16%;position: relative;border-radius: 15px;vertical-align: middle;margin-left: 5%;background-color: white}
+#guider>div>.search>input{width:80%;margin-right: 10%;margin-left: 6%;height: 35px;font-size: 14px;vertical-align: middle;border:0;outline:none;display: inline-block;}
+#guider>div>.search>.no-ready{
+    display: inline-block;
+    background-repeat:no-repeat;
+    position:absolute;
+    right:10%;
+    transform: translateY(40%);
+    cursor: pointer;
+}
+
+#guider>div{position:relative}
+#guider>div>span{
+    width: 25px;
+    transform: translateY(18%); 
+    cursor:pointer;
+    vertical-align: middle;
+    float: right
+}
+#guider>div>span>img{width:90%;margin-bottom: 3px}
+#guider>div>span>p{color:#aba9ac;font-size: 12px;margin-bottom:0 ;position: relative}
+#guider>div>span>.login{
+    width: 1100%;height: 700%;
+    border:1px solid black;
+    position: absolute;
+    top: 122%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0.84);
+    z-index: 100;
+}
+#guider>div>span>.login>span{display:block;width: 76%;margin: 0 auto;border: 1px solid #272636;border-radius: 25px;margin-top: 17%;border-left: 0}
+#guider>div>span>.login>span>img{
+    width:15%;
+    vertical-align: middle;
+    margin-right: 2%
+}
+#guider>div>span>.login>span>input{
+    margin: auto 0;
+    border:0;
+    vertical-align: middle;
+    outline:none;
+    background-color:rgba(255, 255, 255, 0);
+}
+#guider>div>span>.login>.password>.tips1{font-size:12px;position:absolute;right:15%;bottom:35%;color: red}
+#guider>div>span>.login>.toLogin{
+    width: 30%;height: 10%;margin-top: 15%;
+    border-radius: 15px;
+    border-left: 1px solid #272636;
+    text-align: center;
+    line-height: 150%;font-family: '微软雅黑';
+    color: #272636;
+    font-size: 18px;
+    letter-spacing: 2px
+}
+#guider>div>span>.login>#toLogin_active{
+    width: 30%;height: 10%;margin-top: 15%;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid #272636;
+    line-height: 150%;font-family: '微软雅黑';
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: white;
+    background-color:#272636; 
+}
+#guider>div>span>.login>p{float: right;margin-right: 7%;margin-top: 17%;font-size: 1%;color:#57A2D4;text-decoration: underline}
+#guider>div>span>.login>.goReg_active{float: right;margin-right: 7%;margin-top: 17%;font-size: 1.5%;color:#0770A8;text-decoration: underline}
+
+/* 注册 */
+#guider>div>span>.reg{
+    width: 1100%;height: 900%;
+    border:1px solid black;
+    position: absolute;
+    top: 122%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0.84);
+    z-index: 100;
+}
+#guider>div>span>.reg>span{display:block;width: 76%;margin: 0 auto;border: 1px solid #272636;border-radius: 25px;margin-top: 13%;border-left: 0}
+#guider>div>span>.reg>span>img{
+    width:15%;
+    vertical-align: middle;
+    margin-right: 2%
+}
+#guider>div>span>.reg>span>input{
+    margin: auto 0;
+    border:0;
+    vertical-align: middle;
+    outline:none;
+    background-color:rgba(255, 255, 255, 0);
+}
+#guider>div>span>.reg>.toLogin{
+    width: 30%;height: 8%;margin-top: 10%;
+    border-radius: 15px;
+    border-left: 1px solid #272636;
+    text-align: center;
+    line-height: 150%;font-family: '微软雅黑';
+    color: #272636;
+    font-size: 18px;
+    letter-spacing: 2px
+}
+#guider>div>span>.reg>#toLogin_active{
+    width: 30%;height: 8%;margin-top: 10%;
+    border-radius: 15px;
+    border: 1px solid #272636;
+    text-decoration: none;
+    background-color:#272636; 
+    text-align: center;line-height: 150%;font-family: '微软雅黑';
+    font-size: 18px;
+    letter-spacing: 2px;
+    color: white;
+}
+#guider>div>span>.reg>p{float: right;margin-right: 7%;margin-top: 10%;font-size: 1%;color:#57A2D4;text-decoration: underline}
+#guider>div>span>.reg>.goReg_active{float: right;margin-right: 7%;margin-top: 10%;font-size: 1.5%;color:#0770A8;text-decoration: underline}
+
+#guider>div>span>.reg>.user>p{font-size:12px;position:absolute;right:15%;top:18%;color: red}
+#guider>div>span>.reg>.userName>p{font-size:12px;position:absolute;right:15%;top:36%;color: red}
+#guider>div>span>.reg>.password>p{font-size:12px;position:absolute;right:15%;top:54%;color: red}
+#guider>div>span>.reg>.againPassword>P{font-size:12px;position:absolute;right:15%;top:72%;color: red}
+#guider>div>span>.reg>.sucReg{width:100%;height:100%;position: absolute;top: 0}
+
+
+
+/* 用户头像 */
+/* #guider>div>.user_photo{float: right;margin-left:5px } */
+#guider>div>.user_photo{width: 4%;}
+#guider>div>.user_photo>img{width:100%;}
+#guider>div>.user_photo>.user{
+    width:300%;height: 150%;
+    position: absolute;
+    top: 124%;
+    transform: translateX(-35%);
+    text-align: center;
+    font-size: 15px;
+    background-color: rgba(255, 255, 255, 0.84);
+    z-index: 1000;
+    box-shadow: 5px 5px 5px #888
+}
+#guider>div>.user_photo>.user:before{
+    content:'';
+    display:block;
+    width:0;height:0;line-height:0;
+    border-style:dotted dashed solid dashed;
+    border-color:transparent;
+    border-bottom-color:white;
+    border-width:8px;
+    position:absolute;
+    left:50%;bottom:99%;
+    transform:translateX(-50%);
+}
+#guider>div>.user_photo>.user>p{
+    margin-top: 5%;
+    font-size: 18px;
+    font-family: '黑体'
+}
+#guider>div>.user_photo>.user>span{
+    display: block;
+    margin-top: 5%
+}
+
+.hold{height: 60px;margin-bottom: 40px;margin-top:5px}
+
+/* 轮播图 */
+#banner{width:100%;
+    height:326px;
+    position: relative
+}
+#banner>img{
+    float: left;
+    width:100%;
+    position: absolute;
+    top: 0;left: 0;
+    animation-duration:1.3s;
+    animation-fill-mode:forwards;
+    animation-timing-function:ease;
+    opacity: 0
+}
+#banner>img:first-child{opacity: 1}
+@keyframes show{
+    from{opacity:0}
+    to{opacity:1}
+}
+@keyframes hide{
+    from{opacity:1}
+    to{opacity:0}
+}
+#banner>.show{animation-name:show}
+#banner>.hide{animation-name:hide}
+#banner>ul{position: absolute;bottom: 8px;left: 50%;transform: translateX(-50%);margin-bottom: 0}
+#banner>ul>li{display: inline-block;width: 15px;height: 15px;border-radius: 15px;border:1px solid #EBE1E1;margin:0 5px;cursor: pointer; }
+#banner>ul>.active{background-color: rgb(185, 30, 30)}
+#banner>.clear{clear:both}
+
+
+
+/* 页脚 */
+.router{background-color: #10041B}
+.router>.container>p{display: inline-block;font-size: 13px;padding-top: 4%;padding-bottom: 2%}
+.router>.container>p:first-child{color: #57A2D4;margin-right: 3%}
+.router>.container>p:last-child{color: #797979}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>热播电影网</title>
+    <link rel="icon" href="./images/logo/logo.png">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/guide.css">
+    <link rel="stylesheet" href="css/play.css">
+   
+    <script src="js/vue.js"></script>
+    <script src="js/vuex.js"></script>
+    <script src="js/axios.js"></script>
+</head>
+<body>
+    <div class="nav">
+        <div class="container">
+            <div id="guider">
+                <guide></guide>
+            </div>
+        </div>
+    </div>
+    <div class="hold"></div>
+    <div class="body">
+        <play></play>
+    </div>
+    <div class="container">
+        
+        <div class="header"></div>
+    </div>
+    <div class="router">
+        <div class="container">
+            <p>CopyRight &copy 2017</p>
+            <p>国家新闻出版广电总局电影卫星频道节目中心官方网站| 京ICP证100935</p>
+        </div>
+    </div>
+
+
+    <!-- Vue模块 -->
+    <!-- 导航条 -->
+    <template id="guide">
+        <div>
+            <img src="./images/logo/logo.png" alt="">
+            <a :href="'./'+i.file" v-for='i in items' :class='{weak:i.name==nav_class||i.name=="首页"}' @mouseenter='nav(i.name)' @mouseleave=clear_nav target="_blank">{{i.name}}</a>
+            <div class="search">
+                <input type="text" placeholder="输入查询信息" v-model='search_content'>
+                <span class="no-ready" @mouseenter='change2' @mouseleave=change1 @click='find'><img :src="'./images/logo/search-'+index+'.jpg'" alt=""></span>
+            </div>
+            <span class="login_photo" @mouseenter='change_two' @mouseleave='change_one' v-if='noLogin'>
+                <img :src="'./images/logo/login-'+curIndex+'.gif'" alt="" @click='showLogin'>
+                <p @click='showLogin'>{{whatNow}}</p>
+                <div class="login" v-show='isLogin==true'>
+                    <span class="user">
+                        <img src="./images/logo/user.gif" alt="" ><input placeholder="账号" type="text" v-model='user.id'>
+                    </span>
+                    
+                    <span class="password">
+                        <img src="./images/logo/password.gif" alt="" ><input placeholder="密码" type="password" v-model='user.password'>
+                        <p v-show='showTips' class="tips1" v-text='tips'></p>
+                    </span>
+                    <span class="toLogin" :id='loginActive' @mouseenter='login_active' @mouseleave='clearActive' @click='login'>登录</span>
+                    <p :class='goReg' @mouseenter='goReg_active' @mouseleave='clearActive' @click='toReg'>没有账号？点我注册</p>
+                </div>
+                <div class="reg" v-show='isReg==true'>
+                    <span class="user">
+                        <img src="./images/logo/user.gif" alt="" ><input placeholder="账号" type="text" v-model='newUser.id'>
+                        <p v-show='idTips'>{{idTipsContent}}</p>
+                    </span>
+                    <span class="userName">
+                        <img src="./images/logo/user.gif" alt="" ><input placeholder="用户名" type="text" v-model='newUser.name' @click='checkId'>
+                        <p v-show='nameTips'>{{nameTipsContent}}</p>
+                    </span>
+                    <span class="password">
+                        <img src="./images/logo/password.gif" alt="" ><input placeholder="密码" type="password" v-model='newUser.password' @click='checkName'>
+                        <p v-show='passwordTips'>{{passwordTipsContent}}</p>
+                    </span>
+                    <span class="againPassword">
+                        <img src="./images/logo/password.gif" alt="" ><input placeholder="确认密码" type="password" v-model='newUser.againPassword' @click='checkPassword'>
+                        <p v-show='againPasswordTips' class="tips2">{{againPasswordContent}}</p>
+                    </span>
+                    <span class="toLogin" :id='loginActive' @mouseenter='login_active' @mouseleave='clearActive' @click='reg'>注册</span>
+                    <p :class='goReg' @mouseenter='goReg_active' @mouseleave='clearActive' @click='toLogin'>朕有账号，回去上朝</p>
+                    <div :class='{sucReg:reged}'></div>
+                </div>
+            </span>
+            <span class="user_photo" v-else @mouseenter='toOption' @mouseleave='leaveOption'>
+                <img :src="'./images/user-photo/'+userPhoto" alt="">
+                <div class="user" v-show='isOption'>
+                    <!-- <p>{{userName}}</p> -->
+                    <span><a :href="'./personal.html#'+managerCome+'/?userName='+userName+'&userPhoto='+userPhoto" target="_blank">个人中心</a></span>
+                    <span @click='loginOut'><a href="#">退出</a></span>
+                </div>
+            </span>
+            
+        </div>
+    </template>
+
+    <!-- play -->
+    <template id="play">
+        <div>
+            <div class="video">
+                <video id="example_video_1" :src="'./video/'+movieName+'.mp4'" controls="controls" autoplay></video>
+            </div>
+            
+            <div class="review">
+                <h2>评论</h2>
+                <hr>
+                <ul>
+                    <li v-for='a in allReview'>
+                        <p class="name">{{a.user+':'}}</p>
+                        <p class="time">{{a.time}}</p>
+                        <h4>{{a.content}}</h4>
+                        <span v-if='a.user==user||isManager=="true"' @click='del(a)'>删除</span>
+                    </li>
+                </ul>
+                <h3>发表评论</h4>
+                <textarea v-if='reviewUse' name="" id="" cols="30" rows="7" v-model='newReview.content'></textarea>
+                <textarea v-else name="" id="" cols="30" rows="7" disabled>登陆后再来评论吧^_^</textarea>
+                <span @click='addReview'>发表</span>
+            </div>
+        </div>
+    </template>
+
+    <!-- 数据仓库引入 -->
+    <!-- <script src="store/public.js"></script> -->
+
+    <script src="components/main/guide.js"></script>
+    <script src="components/play/play.js"></script>
+    <script>
+        var vm=new Vue({
+            el:'#guider',
+            //store:public
+        });
+        var vm2=new Vue({
+            el:'.body',
+        })
+    </script>
+    
+</body>
+</html>

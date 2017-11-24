@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>个人中心</title>
+    <link rel="icon" href="./images/logo/logo.png">
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-router.js"></script>
+    <script src="./js/axios.js"></script>
+    <script src="./js/vuex.js"></script>
+    <!-- <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script> -->
+    <link rel="stylesheet" href="css/personal.css">
+    <script>
+        window.onload=function(){
+            return document.getElementsByTagName('body')[0].style.height=document.documentElement.clientHeight+'px'
+        }
+    </script>
+</head>
+<body>
+    <!-- is manager or user -->
+    <div id="app">
+        <div>
+            <router-link to='/manager'></router-link>
+            <router-link to='/user'></router-link>
+        </div>
+        <router-view></router-view>
+    </div>
+    
+    <!-- photo -->
+    <template id="photo">
+        <div class="photo">
+            <div>
+                <img :src="userPhoto" alt="">
+            </div>
+        </div>
+    </template>
+
+    
+
+
+    <!-- manager -->
+    <template id="manager">
+        <div class="main">
+            <div class="left">
+                <photo></photo>
+                <router-link to='/people'>用户</router-link>
+                <router-link to='/movie'>电影</router-link>
+            </div>
+            <div class="right">
+                <router-view></router-view>
+            </div>
+        </div>
+    </template>
+
+    <!-- people -->
+    <template id="people">
+        <div class="people">
+            <div class="hold">
+            </div>
+            <table>
+                <thead>
+                    <th v-for="h in head">{{h}}</th>
+                    <th @click='conOp' class="option">操作</th>
+                </thead>
+                <tbody>
+                    <tr v-for='(user,i) in users'>
+                        <td>{{i+1}}</td>
+                        <td v-for='item in items' v-if='item.isA==true'><a v-text='user[item.name]'></a></td>
+                        <td v-else-if='item.isP==true'><a :href="'http://localhost:18080/images/user-photo/'+user.userPhoto" target="_blank">查看</a></td>
+                        <td v-else-if='item.isS==true'>
+                            <span v-show='isOption' v-text='freez[user.isFreez]' @click="toFreez(user.id,user.isFreez)" class="freez"></span>
+                        </td>
+                        <td v-else v-text='user[item.name]'></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+
+
+    <!-- alert template -->
+    <template id="alert">
+        <div id="cover" v-show='$store.state.alertShow'>
+            <div id="content">
+                <div id="header">
+                    <p>提示</p>
+                    <span @click="closeWindow">×</span>
+                </div>
+                <div id="body" v-text='$store.state.tipsContent'></div>
+                <div id="footer" v-if='$store.state.moveOrEnd==true' v-text='$store.state.certain' @click='certain'></div>
+                <div id="footer" v-else v-text='$store.state.certain' @click='certainClose'></div>
+            </div>
+        </div>
+    </template>
+
+
+
+    <!-- edit tempalte -->
+    <!-- <template id="edit">
+            <div id="cover" v-show='true'>
+                <div id="content">
+                    <div id="header">
+                        <p>编辑</p>
+                        <span @click="closeWindow">×</span>
+                    </div>
+                    <div id="body" v-text='$store.state.tipsContent'></div>
+                    <div id="footer" v-if='$store.state.moveOrEnd==true' v-text='$store.state.certain' @click='certain'></div>
+                    <div id="footer" v-else v-text='$store.state.certain' @click='certainClose'></div>
+                </div>
+            </div>
+        </template> -->
+    <template id="edit">
+        <div id="e-cover" v-show='$store.state.editShow'>
+            <div v-if='$store.state.isEdit'>
+                <div id="e-content">
+                    <div id="e-header">
+                        <p>编辑</p>
+                        <span @click="closeWindow">×</span>
+                    </div>
+                    <div id="e-body">
+                        <form action="">
+                            <div v-for='item in movieItem'>
+                                <p v-text='item.chn+":"'></p>
+                                <select v-if='item.name=="type"' v-model='$store.state.editWhat[item.name]'>
+                                    <option v-for='i in choseType' v-if='$store.state.editWhat.type==i' selected>{{i}}</option>
+                                    <option v-else>{{i}}</option>
+                                </select>
+                                <select v-else-if='item.name=="area"' v-model='$store.state.editWhat[item.name]'>
+                                    <!-- <option v-for'j in choseArea' v-if='$store.state.editWhat.area==j' selected>{{j}}</option>
+                                    <option v-else>{{j}}</option> -->
+                                    <option v-for='j in choseArea' v-if='j==$store.state.editWhat.area' selected>{{j}}</option>
+                                    <option v-else>{{j}}</option>
+                                </select>
+                                <input type="text" v-else v-model='$store.state.editWhat[item.name]'>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- <div id="e-footer" v-if='$store.state.moveOrEnd==true' v-text='$store.state.certain' @click='certain'></div>
+                    <div id="e-footer" v-else v-text='$store.state.certain' @click='certainClose'></div> -->
+                    <div id="e-footer"><span @click='goEdit'>确定</span></div>
+                </div>
+            </div>
+            <div v-else-if='$store.state.isEdit==false'>
+                <div id="e-content">
+                    <div id="e-header">
+                        <p>新增</p>
+                        <span @click="closeWindow">×</span>
+                    </div>
+                    <div id="e-body">
+                        <form action="">
+                            <div v-for='item in movieItem'>
+                                <p v-text='item.chn+":"'></p>
+                                <select v-if='item.name=="type"' v-model='$store.state.addWhat[item.name]'>
+                                    <option v-for='i in choseType'>{{i}}</option>
+                                </select>
+                                <select v-else-if='item.name=="area"' v-model='$store.state.addWhat[item.name]'>
+                                    <option v-for='j in choseArea'>{{j}}</option>
+                                </select>
+                                <input type="text" v-else v-model='$store.state.addWhat[item.name]'>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="e-footer"><span @click='goAdd'>确定</span></div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+
+
+    <!-- template movie -->
+    <template id="movie">
+        <div class="movie">
+            <div class="hold">
+                <form action="">
+                    <div v-for='item in msg'>
+                        <p v-text='item.chn+":"'></p>
+                        <select v-if='item.name=="type"' v-model='$store.state.search[item.name]'>
+                            <option v-for='i in choseType'>{{i}}</option>
+                        </select>
+                        <select v-else-if='item.name=="area"' v-model='$store.state.search[item.name]'>
+                            <option v-for='j in choseArea'>{{j}}</option>
+                        </select>
+                        <input type="text" v-else v-model='$store.state.search[item.name]'>
+                    </div>
+                    <span @click='search'>查询</span>
+                </form>
+            </div>
+            <table>
+                <caption>
+                    <thead>
+                        <th v-for='t in title'>{{t}}</th>
+                        <th class="option" @click='conOp'>操作</th>
+                    </thead>
+                </caption>
+                <tbody>
+                    <tr v-for='(movie,i) in movies'>
+                        <td>{{i+1}}</td>
+                        <td v-for='item in items' v-text='movie[item]'></td>
+                        <td>
+                            <img src="./images/logo/edit.gif" alt="" v-show='toOption' @click='toEdit(movie)'>
+                            <img src="./images/logo/delete.gif" alt="" v-show='toOption' @click='toDel(movie)'>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>new</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="add"  @click='toAdd' v-show='toOption'>Add</td>
+                    </tr>
+                </tbody>
+            </table>
+            <alert @to-del='del'></alert>
+            <edit :movie-item='msg' :chose-type='choseType' :chose-area='choseArea' @to-edit='edit' @to-add='add'></edit>
+        </div>
+    </template>
+
+
+
+
+    <!-- user -->
+    <!-- <template id="user">
+        <div>user</div>
+    </template> -->
+
+    <template id="user">
+        <div class="main">
+            <div class="left">
+                <photo></photo>
+                <router-link to='/likeMovie'>我的电影</router-link>
+                <router-link to='/myReview'>我的评论</router-link>
+            </div>
+            <div class="right">
+                <router-view></router-view>
+            </div>
+        </div>
+    </template>
+
+    <!-- likeMovie -->
+    <template id="likeMovie">
+        <div id="userMovie">
+            <ul>
+                <li v-for='(l,i) in like' @click='delLike(l,i)'>
+                    <img :src="'./images/movie/'+l+'.jpg'" alt="">
+                    <p>{{l}}</p>
+                    <img src="./images/logo/delete.gif" alt="" class="delMovie">
+                </li>
+            </ul>
+        </div>
+    </template>
+
+    <!-- myReview -->
+    <template id="myReview">
+        <div>
+            <table>
+                <caption>
+                    <thead>
+                        <th v-for='t in title'>{{t}}</th>
+                        <th class="option" @click='conOp'>操作</th>
+                    </thead>
+                </caption>
+                <tbody>
+                    <tr v-for='(review,i) in reviews'>
+                        <td>{{i+1}}</td>
+                        <td v-for='item in items' v-text='review[item]'></td>
+                        <td>
+                            <img src="./images/logo/delete.gif" alt="" v-show='toOption' @click='toDel(review)'>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+
+    <script src="./store/public.js"></script>
+    <script src="./components/personal/photo.js"></script>
+    <!-- <script src="./components/personal/manager/manager.js"></script> -->
+    <script src="./components/personal/manager/people.js"></script>
+    <script src="./components/personal/manager/movie.js"></script>
+    <script src="./components/personal/manager/alert.js"></script>
+    <script src="./components/personal/manager/edit.js"></script>
+    <script src="./components/personal/user/likeMovie.js"></script>
+    <script src="./components/personal/user/myReview.js"></script>
+
+    <script>
+        
+        var manager=Vue.extend({
+            template:"#manager"
+        })
+        var user=Vue.extend({
+            template:'#user'
+        })
+        var routes=[
+            {
+                path:'/manager',
+                component:manager,
+                children:[
+                    {path:'/',alias:'/people',component:people},
+                    {path:'/people',component:people},
+                    {path:'/movie',component:movie}
+                ]
+            },
+            {
+                path:'/user',
+                component:user,
+                children:[
+                    {path:'/',alias:'/likeMovie',component:likeMovie},
+                    {path:'/likeMovie',component:likeMovie},
+                    {path:'/myReview',component:myReview}
+                ]
+            }
+        ];
+        var router=new VueRouter({
+            routes:routes
+        })
+        var vm=new Vue({
+            el:'#app',
+            store:pubilc,
+            router:router
+        })
+    </script>
+    <!-- <div id="person">
+        <router-link to='/manager'>wq</router-link>
+        <router-link to='/user'></router-link>
+        <router-view></router-view>
+    </div>
+    <template id="isManager">
+        <div>
+            <template id="manager">
+                <div>
+                    <p>{{items}}</p>
+                </div>
+            </template>
+        </div>
+    </template>
+    <script src="./components/personal/manager.js"></script>
+    <script src="./components/personal/user.js"></script>
+    <script>
+        var Manager=Vue.extend({
+            template:'#isManager'
+        })
+        var User=Vue.extend({
+            template:'<div>user</div>'
+        })
+        var routes=[
+            {path:'/manager',component:Manager},
+            {path:'/user',component:User}
+        ]
+        var router=new VueRouter({
+            routes:routes
+        })
+        var vm=new Vue({
+            el:'#person',
+            router:router
+        })
+    </script> -->
+</body>
+</html>

@@ -1,0 +1,19 @@
+var alert=Vue.extend({
+    template:'#alert',
+    methods:{
+        closeWindow:function(){
+            this.$store.state.alertShow=false;
+            this.$store.state.tipsContent=''
+        },
+        certain:function(){
+            this.$emit('to-del',this.$store.state.delWhat)
+        },
+        certainClose:function(){
+            this.$store.state.alertShow=false;
+            this.$store.state.delWhat={};
+            this.$store.state.moveOrEnd=true;
+            this.$store.state.tipsContent='';
+        }
+    }
+});
+Vue.component('alert',alert);

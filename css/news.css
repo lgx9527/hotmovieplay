@@ -1,0 +1,22 @@
+.body>div>.left{display: inline-block;width: 68%;margin-right: 5%}
+.body>div>.left>ul>li{margin: 5% 0}
+.body>div>.left>ul>li>span{display: inline-block;height: 10%;vertical-align: top}
+.body>div>.left>ul>li>span>a>img{width: 100%}
+.body>div>.left>ul>li>a>h3{margin: 0;}
+.body>div>.left>ul>li>span>p{margin: 0;}
+.body>div>.left>ul>li>.photo{width: 21%;overflow: hidden}
+.body>div>.left>ul>li>.photo>a>img:hover{transform: scale(1.2)}
+.body>div>.left>ul>li>.word{width: 77.5%;}
+.body>div>.left>ul>li>.word>a>h3{margin-top: 1%;margin-bottom: 5%}
+.body>div>.left>ul>li>.word>p{color: #BBBBBB}
+
+.body>div>.right{width:26%;display: inline-block;vertical-align: top}
+.body>div>.right>h4{margin-top: 15%;font-weight: bold}
+.body>div>.right>div>img{width: 100%;}
+.body>div>.right>div>span{display: block}
+.body>div>.right>div>span:first-child{background-color: black}
+.body>div>.right>div>span>p{display: inline-block;vertical-align: middle;cursor: pointer}
+.body>div>.right>div>span>p:hover{text-decoration: underline}
+.body>div>.right>div>span>.hot{color: #E40000}
+.body>div>.right>div>span>p:first-child{font-size: 18px}
+.body>div>.right>div>span>p:last-child{float: right}

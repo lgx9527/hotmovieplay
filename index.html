@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>热播电影网</title>
+    <link rel="icon" href="./images/logo/logo.png">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/guide.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/vue.js"></script>
+    <script src="js/vuex.js"></script>
+    <script src="js/axios.js"></script>
+</head>
+<body>
+    <div class="nav">
+        <div class="container">
+            <div id="guider">
+                <guide></guide>
+            </div>
+        </div>
+    </div>
+    <div class="hold"></div>
+    <div class="container">
+        <div class="header">
+            <div id="banner">
+                <img src="./images/banner/1.jpg" alt="">
+                <img src="./images/banner/2.jpg" alt="">
+                <img src="./images/banner/3.jpg" alt="">
+                <img src="./images/banner/4.jpg" alt="">
+                <img src="./images/banner/5.jpg" alt="">
+                <ul>
+                    <li class="active"></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div class="body">
+            <matter></matter>
+        </div>
+        <div class="header"></div>
+    </div>
+    <div class="router">
+        <div class="container">
+            <p>CopyRight &copy 2017</p>
+            <p>国家新闻出版广电总局电影卫星频道节目中心官方网站| 京ICP证100935</p>
+        </div>
+    </div>
+
+
+    <!-- Vue模块 -->
+    <!-- 导航条 -->
+    <template id="guide">
+        <div>
+            <img src="./images/logo/logo.png" alt="">
+            <a :href="'./'+i.file" v-for='i in items' :class='{weak:i.name==nav_class||i.name=="首页"}' @mouseenter='nav(i.name)' @mouseleave=clear_nav target="_blank">{{i.name}}</a>
+            <div class="search">
+                <input type="text" placeholder="输入查询信息" v-model='search_content'>
+                <span class="no-ready" @mouseenter='change2' @mouseleave=change1 @click='find'><img :src="'./images/logo/search-'+index+'.jpg'" alt=""></span>
+            </div>
+            <span class="login_photo" @mouseenter='change_two' @mouseleave='change_one' v-if='noLogin'>
+                <img :src="'./images/logo/login-'+curIndex+'.gif'" alt="" @click='showLogin'>
+                <p @click='showLogin'>{{whatNow}}</p>
+                <div class="login" v-show='isLogin==true'>
+                    <span class="user">
+                        <img src="./images/logo/user.gif" alt="" ><input placeholder="账号" type="text" v-model='user.id'>
+                    </span>
+                    
+                    <span class="password">
+                        <img src="./images/logo/password.gif" alt="" ><input placeholder="密码" type="password" v-model='user.password'>
+                        <p v-show='showTips' class="tips1" v-text='tips'></p>
+                    </span>
+                    <span class="toLogin" :id='loginActive' @mouseenter='login_active' @mouseleave='clearActive' @click='login'>登录</span>
+                    <p :class='goReg' @mouseenter='goReg_active' @mouseleave='clearActive' @click='toReg'>没有账号？点我注册</p>
+                </div>
+                <div class="reg" v-show='isReg==true'>
+                    <span class="user">
+                        <img src="./images/logo/user.gif" alt="" ><input placeholder="账号" type="text" v-model='newUser.id'>
+                        <p v-show='idTips'>{{idTipsContent}}</p>
+                    </span>
+                    <span class="userName">
+                        <img src="./images/logo/user.gif" alt="" ><input placeholder="用户名" type="text" v-model='newUser.name' @click='checkId'>
+                        <p v-show='nameTips'>{{nameTipsContent}}</p>
+                    </span>
+                    <span class="password">
+                        <img src="./images/logo/password.gif" alt="" ><input placeholder="密码" type="password" v-model='newUser.password' @click='checkName'>
+                        <p v-show='passwordTips'>{{passwordTipsContent}}</p>
+                    </span>
+                    <span class="againPassword">
+                        <img src="./images/logo/password.gif" alt="" ><input placeholder="确认密码" type="password" v-model='newUser.againPassword' @click='checkPassword'>
+                        <p v-show='againPasswordTips' class="tips2">{{againPasswordContent}}</p>
+                    </span>
+                    <span class="toLogin" :id='loginActive' @mouseenter='login_active' @mouseleave='clearActive' @click='reg'>注册</span>
+                    <p :class='goReg' @mouseenter='goReg_active' @mouseleave='clearActive' @click='toLogin'>朕有账号，回去上朝</p>
+                    <div :class='{sucReg:reged}'></div>
+                </div>
+            </span>
+            <span class="user_photo" v-else @mouseenter='toOption' @mouseleave='leaveOption'>
+                <img :src="'./images/user-photo/'+userPhoto" alt="">
+                <div class="user" v-show='isOption'>
+                    <!-- <p>{{userName}}</p> -->
+                    <span><a :href="'./personal.html#'+managerCome+'/?userName='+userName+'&userPhoto='+userPhoto" target="_blank">个人中心</a></span>
+                    <span @click='loginOut'><a href="#">退出</a></span>
+                </div>
+            </span>
+            
+        </div>
+    </template>
+
+    <!-- 主页内容 -->
+    <template id="matter">
+        <div class="main">
+            <div class="news">
+                <h3>新闻资讯</h3>
+                <div class="news-content">
+                    <a v-for='n in news' :href="'./news.html?'+n">{{n}}</a>
+                </div>
+                <div class="news-content2">
+                    <a v-for='n in news2' :href="'./news.html?'+n">{{n}}</a>
+                </div>
+                <div class="news-content3">
+                    <div class="part1">
+                        <div><img src="./images/index/1.jpg" alt=""></div>
+                        <a href="./news.html/?九月影市观察 国庆档大爆发">九月影市观察 国庆档大爆发</a>
+                    </div>
+                    <div class="part2">
+                        <div><img src="./images/index/2.jpg" alt=""></div>
+                        <a href="./news.html/?你穿Prada 而我穿整个纽约">你穿Prada 而我穿整个纽约</a>
+                    </div>
+                    <div class="part3">
+                        <div><img src="./images/index/3.jpg" alt=""></div>
+                        <a href="./news.html/?你穿Prada 而我穿整个纽约">猫眼PK淘票票将谁胜谁负？</a>
+                    </div>
+                </div>
+                <a class="more" href="./news.html" target="_blank"><span class="more">more</span></a>
+                <hr>
+            </div>
+            <div class="film-review">
+                <h3>电影评论</h3>
+                <div class="review-content">
+                    <div><img src="./images/index/4.jpg" alt=""></div>
+                    <a href="./film-review.html/?《英伦对决》全新突破 影评人给成龙演技打9分"><h4>《英伦对决》全新突破 影评人给成龙演技打9分</h4></a>
+                    <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp英伦大战，吹响号角。卸下战袍，回归真实。成龙电影全新突破，《今日影评》邀请中国传媒大学教授索亚斌独家点...</p>
+                </div>
+                <div class="review-content2">
+                    <div>
+                        <div><img src="./images/index/5.jpg" alt=""></div>
+                        <a href="./film-review.html?看完电影，我给大鹏的第三部导演作品想了新策划">看完电影，我给大鹏的第三部导演作品想了新策划</a>
+                    </div>
+                    <div>
+                        <div><img src="./images/index/6.jpg" alt=""></div>
+                        <a href="./film-review.html?狗尾续貂的电影有很多，这部电影却是该系列最佳">狗尾续貂的电影有很多，这部电影却是该系列最佳</a>
+                    </div>
+                    <div>
+                        <div><img src="./images/index/7.jpg" alt=""></div>
+                        <a href="./film-review.html?这个逆生长的超级英雄身体里竟然住着一个老灵魂">这个逆生长的超级英雄身体里竟然住着一个老灵魂</a>
+                    </div>
+                </div>
+                <div class="review-content3">
+                    <div><img src="./images/index/8.jpg" alt=""></div>
+                    <a href="./film-review.html?童年创伤,精分范爷反转人生"><h4>童年创伤,精分范爷反转人生</h4></a>
+                    <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 现实生活中的范爷有多幸福，《二次曝光》里的她就有多惨，惨到精神分裂，惨到一夜...</p>
+                </div>
+                <a class="more" href="./film-review.html" target="_blank"><span class="more">more</span></a>
+                <hr>
+            </div>
+            <div class="movie">
+                <h3>在线电影</h3>
+                <div>
+                    <div v-for='(m,i) in movies'>
+                        <div @mouseenter='showPlay(i)' :class="'paly-'+i+'-'+item" @mouseleave='noPlay'>
+                            <a :href="'./images/movie?'+m">
+                                <img :src="'./images/movie/'+m+'.jpg'" alt="">
+                                
+                            </a>
+                            <div class="cover" v-show='i==item'>
+                                <a :href="'./play.html?'+m">
+                                    <img src="./images/logo/play.gif" alt="" v-show='toPlay'>
+                                </a>
+                            </div>
+                        </div>
+                        <p>{{m}}</p>
+                    </div>
+                </div>
+                <a class="more" href="./movie.html" target="_blank"><span class="more">more</span></a>
+            </div>
+        </div>
+        
+    </template>
+    <!-- 数据仓库引入 -->
+    <!-- <script src="store/public.js"></script> -->
+
+    <script src="components/main/guide.js"></script>
+    <script src='components/main/content.js'></script>
+    <script>
+        var vm=new Vue({
+            el:'#guider',
+            //store:public
+        })
+        var vm2=new Vue({
+            el:'.body'
+        })
+    </script>
+    
+</body>
+<script>
+    var id=function(ID){
+        return document.getElementById(ID)
+    }
+    var tag=function(name,father){
+        father=father||document;
+        return father.getElementsByTagName(name)
+    }
+
+    
+    var curIndex=0;
+    var handler=null;
+    var imgs=tag('img',id('banner'));
+    var lists=tag('li',id('banner'));
+
+
+    function change(nextIndex){
+        imgs[curIndex].className='hide';
+        imgs[nextIndex].className='show';
+        lists[curIndex].className='';
+        lists[nextIndex].className='active'
+        curIndex=nextIndex
+    }
+    function autoChange(){
+        var nextIndex=curIndex+1>=imgs.length?0:curIndex+1;
+        change(nextIndex)
+    }
+
+
+    window.onload=function(){
+        handler=setInterval(autoChange,2000);
+        id('banner').onmouseover=function(){
+            clearInterval(handler)
+        };
+        id('banner').onmouseout=function(){
+            handler=setInterval(autoChange,2000)
+        };
+        for(var i=0;i<lists.length;i++){
+            lists[i].index=i;
+            lists[i].onclick=function(){
+                change(this.index)
+            }
+        };
+    }
+</script>
+</html>

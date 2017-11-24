@@ -1,0 +1,46 @@
+var myReview=Vue.extend({
+    template:'#myReview',
+    data:function(){
+        return{
+            title:['序号','电影名','内容','时间'],
+            toOption:false,
+            reviews:[],
+            items:['movie','content','time'],
+            url:'http://localhost:18080/user/',
+        }
+    },
+    created:function(){
+        this.getAll()
+    },
+    methods:{
+        getAll:function(){
+            var data={};
+            data.user=localStorage.userName;
+            axios({
+                method:'get',
+                url:this.url+'myReview',
+                params:data
+            }).then(function(result){
+                this.reviews=result.data;
+                console.log(this.reviews)
+            }.bind(this)).catch(function(err){console.log(err)})
+        },
+        conOp:function(){
+            this.toOption=!this.toOption
+        },
+        toDel:function(data){
+            axios({
+                url:this.url+'delReview',
+                method:'get',
+                params:data
+            }).then(function(result){
+                if(result.data=='删除成功'){
+                    this.getAll();
+                }
+            }.bind(this)).catch(function(err){
+                console.log(err)
+            })
+        },
+    }
+})
+Vue.component('myReview',myReview)

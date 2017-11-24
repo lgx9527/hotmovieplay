@@ -1,0 +1,20 @@
+var edit=Vue.extend({
+    template:'#edit',
+    props:['movieItem','choseType','choseArea','safe'],
+    data:function(){
+        return{}
+    },
+    methods:{
+        closeWindow:function(){
+            this.$store.state.editShow=false;
+            this.$store.state.isEdit=null;
+        },
+        goEdit:function(){
+            this.$emit('to-edit',this.$store.state.editWhat)
+        },
+        goAdd:function(){
+            this.$emit('to-add',this.$store.state.addWhat)
+        }
+    }
+})
+Vue.component('edit',edit)

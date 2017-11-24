@@ -1,0 +1,83 @@
+/* 内容 */
+/* .body{width:100%;height: 500px;background-color: rgb(105, 8, 8)} */
+.body{margin-top: 5%}
+.body>.main>div{margin-bottom: 10%}
+
+
+.body>.main>.news{font-size: 0px;}
+.body>.main>.news>h3{text-align: center;color: #337ab7}
+.body>.main>.news>.more{text-align: center;font-size: 15px;width: 10%;margin: 0 auto;margin-top: 5%;border:1px solid #5C5858;border-radius: 10%;padding: 0.5% 0.5%}
+.body>.main>.news>.more:hover{text-decoration: none;border:1px solid black;background-color: black;color: white}
+.body>.main>.news a{display:block;margin-top: 8%;color: #5C5858;font-size: 15px}
+.body>.main>.news a:hover{color: #01014B}
+.body>.main>.news>.news-content{display: inline-block;padding-right: 2%}
+.body>.main>.news>.news-content>a{display: block;}
+.body>.main>.news>.news-content>a:first-child{font-weight: bold}
+.body>.main>.news>.news-content2{display: inline-block;padding-right: 2%}
+.body>.main>.news>.news-content2>a{display: block}
+.body>.main>.news>.news-content2>a:first-child{font-weight: bold}
+.body>.main>.news>.news-content3{float: right;margin-top:2%}
+.body>.main>.news>.news-content3>div{margin-top: 6%;}
+.body>.main>.news>.news-content3>div>div{overflow: hidden}
+.body>.main>.news>.news-content3>div>div>img{width: 100%}
+.body>.main>.news>.news-content3>div>div>img:hover{transform: scale(1.2);cursor: pointer}
+.body>.main>.news>.news-content3>div>a{margin-top: 0;color: #6161F8}
+.body>.main>.news>.news-content3>div>a:hover{color: #4545FA;text-decoration: none}
+    /* display: inline-block;vertical-align:top;margin-top:2% */
+/* .body>.news>hr{color: #000000} */
+
+
+
+.body>.main>.film-review{font-size: 0px;}
+/* .body>.main>.film-review>div{display: inline-block} */
+.body>.main>.film-review>h3{text-align: center;color: #337ab7;margin-bottom: 5%}
+.body>.main>.film-review>div{vertical-align: top}
+.body>.main>.film-review>.more{text-align: center;font-size: 15px;width: 10%;margin: 0 auto;margin-top: 5%;border:1px solid #5C5858;border-radius: 10%;padding: 0.5% 0.5%}
+.body>.main>.film-review>.more:hover{text-decoration: none;border:1px solid black;background-color: black;color: white}
+.body>.main>.film-review a{display:block;margin-top: 8%;color: #5C5858;font-size: 15px}
+.body>.main>.film-review a:hover{color: #01014B}
+.body>.main>.film-review>.review-content{display: inline-block;width: 40%;background-color: #F1F0F0}
+.body>.main>.film-review>.review-content>div{overflow: hidden}
+.body>.main>.film-review>.review-content>div>img{width: 100%;cursor: pointer}
+.body>.main>.film-review>.review-content>div>img:hover{transform: scale(1.1)}
+.body>.main>.film-review>.review-content>a{display: inline-block;margin: 0;width: 100%;margin-top: 10%;color: #222222}
+.body>.main>.film-review>.review-content>p{display: block;font-size: 15px;margin:13.5% 0;line-height: 30px;color: #615F5F}
+
+
+.body>.main>.film-review>.review-content2{display: inline-block;padding-right: 2%}
+
+.body>.main>.film-review>.review-content2{width: 25%;margin-left: 5%}
+.body>.main>.film-review>.review-content2>div{display:block;}
+.body>.main>.film-review>.review-content2>div>div{overflow: hidden}
+.body>.main>.film-review>.review-content2>div>div>img{width: 100%;cursor: pointer}
+.body>.main>.film-review>.review-content2>div>div>img:hover{transform: scale(1.1)}
+.body>.main>.film-review>.review-content2>div>a{width: 100%;margin-top: 0;color: #5C5858;margin-bottom: 5%;cursor: pointer}
+.body>.main>.film-review>.review-content2>div>a:hover{color: #01014B;text-decoration: none}
+.body>.main>.film-review a{display:block;margin-top: 8%;color: #5C5858;font-size: 15px}
+.body>.main>.film-review a:hover{color: #01014B}
+.body>.main>.film-review>.review-content3{display: inline-block;width: 30%;background-color: #F1F0F0}
+.body>.main>.film-review>.review-content3>div{overflow: hidden}
+.body>.main>.film-review>.review-content3>div>img{width: 100%}
+.body>.main>.film-review>.review-content3>div>img:hover{transform: scale(1.2);cursor: pointer}
+.body>.main>.film-review>.review-content3>a{display: inline-block;margin: 0;width: 100%;margin-top: 6%;color: #222222}
+.body>.main>.film-review>.review-content3>p{display: block;font-size: 15px;margin:8% 0;line-height: 30px;color:#615F5F}
+.body>.main>.film-review>.review-content3{float: right;}
+.body>.main>.film-review>.reviews-content3>div>a{margin-top: 0;color: #6161F8}
+.body>.main>.film-review>.review-content3>div>a:hover{color: #4545FA;text-decoration: none}
+
+
+.body>.main>.movie{}
+.body>.main>.movie>h3{text-align: center;margin-bottom: 5%;color: #337ab7}
+.body>.main>.movie>div{display:block}
+.body>.main>.movie div div{margin-right: 3%;display: inline-block}
+.body>.main>.movie div div .paly-0-0{position: relative}
+.body>.main>.movie div div .paly-1-1{position: relative}
+.body>.main>.movie div div .paly-2-2{position: relative}
+.body>.main>.movie div div .paly-3-3{position: relative}
+.body>.main>.movie div div:last-child {float: right;margin: 0}
+.body>.main>.movie div div>p{text-align: center;margin-top: 5%;}
+.body>.main>.movie div div>div{margin: 0}
+.body>.main>.movie div div>div>.cover{width: 100%;height: 100%;position: absolute;left: 0;top: 0;background-color: rgba(0, 0, 0, .3);cursor:pointer}
+.body>.main>.movie div>div>.cover>a>img{width: 70%;margin-left: 15%;text-align: center;position: absolute;transform: translateY(50%);opacity: .5}
+.body>.main>.movie>.more{display: block;text-align: center;font-size: 15px;width: 10%;margin: 0 auto;margin-top: 5%;border:1px solid #5C5858;border-radius: 10%;padding: 0.5% 0.5%;color: #5C5858}
+.body>.main>.movie>.more:hover{text-decoration: none;border:1px solid black;background-color: black;color: white}

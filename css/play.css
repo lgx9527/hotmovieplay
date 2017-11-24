@@ -1,0 +1,17 @@
+/* {width: 100%;margin: 0 auto} */
+/* .body>div{width: 75%;margin: 0 auto;background-color: black} */
+.hold{margin: 0}
+.body>div>.video{width: 100%;background-color: black}
+.body>div>.video>#example_video_1{width: 75%;margin-left: 12.5%}
+.body>div>.review{width: 75%;margin: 0 auto;margin-top: 5%}
+.body>div>.review>h2{text-align: center;margin-bottom: 2%}
+.body>div>.review>span{float: right;border:  1px solid black;width: 10%;text-align: center;font-size: 18px;padding: 0.5% 0;cursor: pointer;margin-bottom: 5%}
+.body>div>.review>span:hover{color: white;background-color: black}
+.body>div>.review>textarea{width: 100%;font-size: 20px}
+.body>div>.review>ul>li{min-height: 60%;border-bottom:1px dotted black;position: relative}
+.body>div>.review>ul>li>h4{padding-top: 2.5%;padding-bottom: 3.5%;color: #222222}
+.body>div>.review>ul>li>p{display: inline-block}
+.body>div>.review>ul>li>.name{color: #5656FF}
+.body>div>.review>ul>li>.time{float: right;color: #ccc}
+.body>div>.review>ul>li>span{display: inline-block;position: absolute;bottom: 1%;right: 1%;color: #0202AF;cursor: pointer}
+.body>div>.review>ul>li>span:hover{color: #3B3BF0}
